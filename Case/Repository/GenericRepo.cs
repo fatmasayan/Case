@@ -74,7 +74,7 @@ namespace Case.Repository
         {
             try
             {
-                var result = EntityState.Modified == (await Table.AddAsync(model)).State;
+                var result = EntityState.Modified == Table.Update(model).State;
 
                 await _context.SaveChangesAsync();
 
@@ -83,6 +83,7 @@ namespace Case.Repository
             }
             catch (Exception ex)
             {
+                // loglama da yapılabilir
                 Console.WriteLine(ex.Message);
 
                 return false;

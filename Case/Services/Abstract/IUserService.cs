@@ -7,7 +7,6 @@ namespace Case.Services
     {
         Task<bool> CreateUserAsync(CreateUser createUser);
         Task<bool> UpdateUserAsync(UpdateUser updateUser);
-
         Task<UserViewModel> GetUserAsync(int id);
         
     }

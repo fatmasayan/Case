@@ -1,5 +1,6 @@
 ﻿using Case.DTOs;
 using Case.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
@@ -8,6 +9,7 @@ namespace Case.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -27,6 +29,7 @@ namespace Case.Controllers
 
 
         [HttpPost("CreateUser")]
+        [AllowAnonymous]
         public async Task<IActionResult> CreateUser([FromBody] CreateUser createUser)
         {
             if (!ModelState.IsValid)
@@ -39,6 +42,7 @@ namespace Case.Controllers
 
 
         [HttpPut("UpdateUser")]
+        
         public async Task<IActionResult> UpdateUser([FromBody] UpdateUser updateUser)
         {
             if (!ModelState.IsValid)

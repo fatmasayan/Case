@@ -1,7 +1,10 @@
-﻿namespace Case.DTOs
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Case.DTOs
 {
     public class CreateUser
     {
+        //[Required(ErrorMessage = "Boş bırakılamaz")]
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
