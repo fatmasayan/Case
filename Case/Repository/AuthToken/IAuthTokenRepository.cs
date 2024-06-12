@@ -1,8 +1,7 @@
 ﻿using Case.Models;
 
-namespace Case.Repository
+namespace Case.Repository;
+
+public interface IAuthTokenRepository : IGenericRepo<AuthToken>
 {
-    public interface IAuthTokenRepository : IGenericRepo<AuthToken>
-    {
-    }
 }

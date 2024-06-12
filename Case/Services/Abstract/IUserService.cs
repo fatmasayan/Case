@@ -1,13 +1,12 @@
 ﻿using Case.DTOs;
 using Case.ViewModels;
 
-namespace Case.Services
+namespace Case.Services;
+
+public interface IUserService
 {
-    public interface IUserService
-    {
-        Task<bool> CreateUserAsync(CreateUser createUser);
-        Task<bool> UpdateUserAsync(UpdateUser updateUser);
-        Task<UserViewModel> GetUserAsync(int id);
-        
-    }
+    Task<bool> CreateUserAsync(CreateUser createUser);
+    Task<bool> UpdateUserAsync(UpdateUser updateUser);
+    Task<UserViewModel> GetUserAsync(int id);
+    
 }

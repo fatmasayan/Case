@@ -1,9 +1,8 @@
-﻿namespace Case.Enums
+﻿namespace Case.Enums;
+
+public enum GenderType
 {
-    public enum GenderType
-    {
-        //
-        Male,
-        Female
-    }
+    //
+    Male,
+    Female
 }

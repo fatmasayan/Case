@@ -1,7 +1,6 @@
-﻿namespace Case.DTOs
+﻿namespace Case.DTOs;
+
+public class GTokenRequest
 {
-    public class GTokenRequest
-    {
-        public string UserMail { get; set; }
-    }
+    public string UserMail { get; set; }
 }

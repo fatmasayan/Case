@@ -1,12 +1,11 @@
 ﻿using Case.Data;
 using Case.Models;
 
-namespace Case.Repository
+namespace Case.Repository;
+
+public class AuthTokenRepository : GenericRepo<AuthToken>, IAuthTokenRepository
 {
-    public class AuthTokenRepository : GenericRepo<AuthToken>, IAuthTokenRepository
+    public AuthTokenRepository(DataContext context) : base(context)
     {
-        public AuthTokenRepository(DataContext context) : base(context)
-        {
-        }
     }
 }

@@ -3,21 +3,20 @@ using Case.DTOs;
 using Case.Models;
 using Case.ViewModels;
 
-namespace Case.Mapping
+namespace Case.Mapping;
+
+public class UserProfile : Profile
 {
-    public class UserProfile : Profile
+    public UserProfile()
     {
-        public UserProfile()
-        {
-            CreateMaps();
-        }
+        CreateMaps();
+    }
 
-        private void CreateMaps()
-        {
-            CreateMap<CreateUser, User>();
+    private void CreateMaps()
+    {
+        CreateMap<CreateUser, User>();
 
-            CreateMap<UpdateUser, User>();
-            CreateMap<User, UserViewModel>();
-        }
+        CreateMap<UpdateUser, User>();
+        CreateMap<User, UserViewModel>();
     }
 }

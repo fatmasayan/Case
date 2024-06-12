@@ -3,91 +3,90 @@ using Case.Models.Comman;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
-namespace Case.Repository
+namespace Case.Repository;
+
+public class GenericRepo<TSource> : IGenericRepo<TSource> where TSource : BaseModel
 {
-    public class GenericRepo<TSource> : IGenericRepo<TSource> where TSource : BaseModel
+    private readonly DataContext _context;
+
+    public GenericRepo(DataContext context)
     {
-        private readonly DataContext _context;
+        _context = context;
+    }
 
-        public GenericRepo(DataContext context)
+    public DbSet<TSource> Table => _context.Set<TSource>();
+
+    public async Task<bool> AddAsync(TSource model)
+    {
+        try
         {
-            _context = context;
+            var result = EntityState.Added == (await Table.AddAsync(model)).State;
+
+            await _context.SaveChangesAsync();
+
+            return result;
+
         }
-
-        public DbSet<TSource> Table => _context.Set<TSource>();
-
-        public async Task<bool> AddAsync(TSource model)
+        catch (Exception ex)
         {
-            try
-            {
-                var result = EntityState.Added == (await Table.AddAsync(model)).State;
+            Console.WriteLine(ex.Message);
 
-                await _context.SaveChangesAsync();
-
-                return result;
-
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-
-                return false;
-            }
+            return false;
         }
+    }
 
-        public async Task<bool> DeleteAsync(Expression<Func<TSource, bool>> filter)
+    public async Task<bool> DeleteAsync(Expression<Func<TSource, bool>> filter)
+    {
+        try
         {
-            try
-            {
-                var model = await Table.FirstOrDefaultAsync(filter);
-                var result = EntityState.Deleted ==  Table.Remove(model).State;
+            var model = await Table.FirstOrDefaultAsync(filter);
+            var result = EntityState.Deleted ==  Table.Remove(model).State;
 
-                await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
 
-                return result;
+            return result;
 
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-
-                return false;
-            }
         }
-
-        public async Task<TSource> GetAsync(Expression<Func<TSource, bool>> filter)
+        catch (Exception ex)
         {
-            try
-            {
-                return await Table.FirstOrDefaultAsync(filter);
+            Console.WriteLine(ex.Message);
 
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-
-                return null;
-            }
+            return false;
         }
+    }
 
-        public async Task<bool> UpdateAsync(TSource model)
+    public async Task<TSource> GetAsync(Expression<Func<TSource, bool>> filter)
+    {
+        try
         {
-            try
-            {
-                var result = EntityState.Modified == Table.Update(model).State;
+            return await Table.FirstOrDefaultAsync(filter);
 
-                await _context.SaveChangesAsync();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
 
-                return result;
+            return null;
+        }
+    }
 
-            }
-            catch (Exception ex)
-            {
-                // loglama da yapılabilir
-                Console.WriteLine(ex.Message);
+    public async Task<bool> UpdateAsync(TSource model)
+    {
+        try
+        {
+            var result = EntityState.Modified == Table.Update(model).State;
 
-                return false;
-            }
+            await _context.SaveChangesAsync();
+
+            return result;
+
+        }
+        catch (Exception ex)
+        {
+            // loglama da yapılabilir
+            Console.WriteLine(ex.Message);
+
+            return false;
         }
     }
 }

@@ -1,8 +1,8 @@
-﻿namespace Case.ViewModels
+﻿
+namespace Case.ViewModels;
+
+public class GTokenResponse
 {
-    public class GTokenResponse
-    {
-        public string Token { get; set; }
-        public DateTime TokenExpDate { get; set; }
-    }
+    public string Token { get; set; }
+    public DateTime TokenExpDate { get; set; }
 }
